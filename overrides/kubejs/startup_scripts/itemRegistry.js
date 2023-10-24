@@ -21,11 +21,10 @@ onEvent('item.registry.tool_tiers', event => {
 });
 
 onEvent('item.registry', (event) => {
-    let mechanism = (name, rarity) => {
+    let mechanism = (name, rarity, add_glow) => {
         let id = name.toLowerCase()
-        event.create(id + '_mechanism').texture("kubejs:item/" + id + "_mechanism").displayName(name + ' Mechanism').rarity(RARITY_COMMON)
+        event.create(id + '_mechanism').texture("kubejs:item/" + id + "_mechanism").displayName(name + ' Mechanism').rarity(rarity ? rarity : RARITY_COMMON).glow(add_glow ? add_glow : false)
         event.create('incomplete_' + id + '_mechanism', 'create:sequenced_assembly').texture("kubejs:item/incomplete_" + id + "_mechanism").displayName('Incomplete ' + name + ' Mechanism')
-
     }
     let tool = (name,rarity) => {
         let id = name.toLowerCase()
@@ -60,6 +59,10 @@ onEvent('item.registry', (event) => {
     tool('Saw')
     seed('Quartz')
     tool('Screwdriver')
+
+    mechanism('Quantum', RARITY_RARE, true);
+    event.create('nether_star_dust').texture("kubejs:item/nether_star_crushed").displayName('Nether Star Dust').rarity(RARITY_UNCOMMON)
+    event.create('nether_star_plate').texture("kubejs:item/nether_star_plate").displayName('Nether Star Plate').rarity(RARITY_RARE).glow(true)
 
     tool('Resonator') 
     event.create('rune_dust').displayName('Rune Dust')
